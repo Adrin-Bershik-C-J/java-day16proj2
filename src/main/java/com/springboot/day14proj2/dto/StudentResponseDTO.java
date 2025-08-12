@@ -8,6 +8,5 @@ public class StudentResponseDTO {
     private Long id;
     private String name;
     private Integer age;
-    private String roomType;
     private Boolean feePaid;
 }

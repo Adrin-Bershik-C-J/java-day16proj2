@@ -21,10 +21,15 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping
-    public ResponseEntity<List<StudentResponseDTO>> getStudents(@RequestParam(required = false) Long id,
-            @RequestParam(required = false) String name, @RequestParam(required = false) Integer age,
-            @RequestParam(required = false) String roomType, @RequestParam(required = false) Boolean feePaid) {
-        List<StudentResponseDTO> students = studentService.getStudents(name, age, roomType, feePaid);
+    public ResponseEntity<List<StudentResponseDTO>> getStudents(
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer age,
+            @RequestParam(required = false) Integer roomNumber,
+            @RequestParam(required = false) Boolean feePaid) {
+
+        List<StudentResponseDTO> students = studentService.getStudents(id, name, age, roomNumber, feePaid);
         return ResponseEntity.ok(students);
     }
+
 }

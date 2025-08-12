@@ -18,12 +18,15 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
 
-    public List<StudentResponseDTO> getStudents(String name, Integer age, String roomType, Boolean feePaid) {
+    public List<StudentResponseDTO> getStudents(Long id, String name, Integer age, Integer roomNumber,
+            Boolean feePaid) {
         return studentRepository.findAll().stream()
+                .filter(student -> id == null || student.getId().equals(id))
                 .filter(student -> name == null || student.getName().equalsIgnoreCase(name))
-                .filter(student -> age == null || student.getAge() == age)
-                .filter(student -> roomType == null || student.getRoomType().equalsIgnoreCase(roomType))
-                .filter(student -> feePaid == null || student.getFeePaid() == true)
+                .filter(student -> age == null || student.getAge().equals(age))
+                .filter(student -> roomNumber == null ||
+                        (student.getRoom() != null && student.getRoom().getRoomNumber().equals(roomNumber)))
+                .filter(student -> feePaid == null || student.getFeePaid().equals(feePaid))
                 .map(studentMapper::toDto)
                 .collect(Collectors.toList());
     }
